@@ -5,20 +5,23 @@ include ActiveRecord::Tasks
 
 class Database
   def self.connect!
+    
+    ActiveRecord::Base.logger = Logger.new(STDOUT)
     ActiveRecord::Base.establish_connection(
-      adapter: 'sqlite3',
-      database: 'database.sqlite3'
+      adapter: 'mysql2',
+      database: 'active_record_class',
+      username: 'root',
+      password: 'Despinoza#2015',
+      host: 'localhost'
     )
   end
 
-  def self.migrate!
+  def self.generate_schema!
     ActiveRecord::Schema.define do
-
       create_table :videos do |t|
         t.string :url
         t.string :title
         t.text :description
-
         t.timestamps null: false
       end
     end
